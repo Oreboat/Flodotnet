@@ -7,12 +7,12 @@ public partial class plugin : EditorPlugin
 {
 	public override void _EnterTree()
 	{
-		// Initialization of the plugin goes here.
+		AddCustomType("FlecsWorld","Node",GD.Load<Script>("res://addons/flodotnet/Nodes/FlecsRegister.cs"), GD.Load<Texture2D>("res://icon.svg"));
 	}
 
 	public override void _ExitTree()
 	{
-		// Clean-up of the plugin goes here.
+		RemoveCustomType("FlecsWorld");
 	}
 }
 #endif
