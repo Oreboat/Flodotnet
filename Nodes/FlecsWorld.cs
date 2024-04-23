@@ -9,7 +9,10 @@ public partial class FlecsWorld : Node
 
     public override void _Ready()
     {
-        
+        if(((SceneTree) Engine.GetMainLoop()).Root != this as Node)
+        {
+            
+        }
         World = World.Create();
         World.Import<RenderModule3D>();
     }
