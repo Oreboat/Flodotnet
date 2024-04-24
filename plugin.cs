@@ -7,7 +7,8 @@ public partial class plugin : EditorPlugin
 {
 	public override void _EnterTree()
 	{
-		AddCustomType("FlecsWorld","Node",GD.Load<Script>("res://addons/flodotnet/Nodes/FlecsWorld.cs"), GD.Load<Texture2D>("res://icon.svg"));
+		AddCustomType("World","Node",GD.Load<Script>("res://addons/flodotnet/Nodes/FlecsWorld.cs"), GD.Load<Texture2D>("res://icon.svg"));
+		AddCustomType("Entity", "Node",GD.Load<Script>("res://addons/flodotnet/Nodes/FlecsEntity.cs"), GD.Load<Texture2D>("res://icon.svg"));
 	}
 
 	public override void _ExitTree()
