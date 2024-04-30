@@ -22,6 +22,7 @@ public void InitModule(ref World world)
 
         RenderingServer.InstanceSetScenario(instance, world3d.Scenario);
         
+        
   });
 {
 

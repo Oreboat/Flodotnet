@@ -2,28 +2,40 @@ using Godot;
 using System;
 using Flecs;
 using Flecs.NET.Core;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
+
 [Tool]
 public partial class FlecsWorld : Node
 {
-    public World World;
-
+    World world1;
     public override void _Ready()
     {
-        if(((SceneTree) Engine.GetMainLoop()).Root != this as Node)
+        world1.Import<RenderModule3D>();
+        return;
+        using World world = World.Create();
+
+        // Grab all module types
+        IEnumerable<Type> derivedTypes = Assembly.GetExecutingAssembly()
+        .GetTypes()
+        .Where(type => typeof(IFlecsModule).IsAssignableFrom(type));
+
+        foreach (Type type in derivedTypes)
         {
-            
+            // Get import function for module.
+            MethodInfo import = typeof(World)
+            .GetMethod(nameof(World.Import))!
+            .MakeGenericMethod(type);
+
+            // Import module.
+            import.Invoke(world, null);
         }
-        World = World.Create();
-        World.Import<RenderModule3D>();
     }
 
     public override void _Process(double delta)
     {
-        World.Progress((float)delta);
-    }
-
-    protected void Import<T>() where T : IFlecsModule, new()
-    {
-        World.Import<T>();
+        
+        world1.Progress((float)delta);
     }
 }
